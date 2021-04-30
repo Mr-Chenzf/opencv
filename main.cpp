@@ -289,9 +289,9 @@ int main(int argc,char** argv)
 		imshow("视频", midImage);
 		imshow("视频2", srcImage);
 		//imshow("视频3", blackimage);
-		cout << "当前帧率为:" << getTickFrequency() / (getTickCount() - time0) << endl;
 		if (waitKey(30) >= 0)
 			stop = true;
+		cout << "当前帧率为:" << getTickFrequency() / (getTickCount() - time0) << endl;
 	}
 	return 0;
 }
