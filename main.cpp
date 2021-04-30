@@ -25,61 +25,6 @@
 //	waitKey(0);
 //	return 0;
 //}
-//#include <opencv2/opencv.hpp>
-//#include <iostream>
-//#include <math.h>
-//#include"putText.h"
-//using namespace std;
-//using namespace cv;
-//int detectColor(Mat image);//检测颜色
-//int main()
-//{
-//    Mat frame, mask, gray, dst, frame1;
-//    VideoCapture cap;
-//    namedWindow("dst", 0);
-//    resizeWindow("dst", 500, 400);
-//    if (!cap.open("红绿灯1.mp4"))
-//    {
-//        cout << "video is err" << endl;
-//        return -1;
-//    }
-//    while (1)
-//    {
-//        cap >> frame;
-//        if (frame.empty())
-//            break;
-//        frame1 = frame.clone();
-//        dst = Mat::zeros(frame.size(), frame.type());
-//        mask = Mat::zeros(frame.size(), CV_8U);
-//        cvtColor(frame, gray, COLOR_BGR2GRAY);
-//        vector<Vec3f> circles;
-//        HoughCircles(gray, circles, HOUGH_GRADIENT, 1, 10, 40, 40, 10, 25); 
-//        for (size_t i = 0; i < circles.size(); i++)
-//        {
-//            Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
-//            int radius = cvRound(circles[i][2]);
-//            circle(mask, center, radius, Scalar(255), -1); //roi
-//            frame1.copyTo(dst, mask);
-//            //绘制圆心
-//            circle(frame, center, 3, Scalar(0, 255, 0), -1, 8, 0);
-//            //绘制圆的轮廓
-//            circle(frame, center, radius, Scalar(155, 50, 255), 3, 8, 0);
-//            circle(mask, center, radius, Scalar(255), -1);
-//        }
-//        if (detectColor(dst) == 1)
-//            putTextZH(frame, "红灯", Point(200, 150), Scalar(255, 0, 255), 50, "楷体");
-//        else if (detectColor(dst) == 2)
-//            putTextZH(frame, "绿灯", Point(200, 150), Scalar(255, 0, 255), 50, "楷体");
-//        else //if(detectColor(dst)==3)
-//            putTextZH(frame, "黄灯", Point(200, 150), Scalar(255, 0, 255), 50, "楷体");
-//        imshow("vedio", frame);
-//        if (waitKey(100) == 27)
-//            break;
-//    }
-//    cap.release();
-//    destroyAllWindows();
-//    return 0;
-//}
 //int detectColor(Mat image)
 //{
 //    Mat mask;
@@ -118,9 +63,9 @@
 //        return 3;
 //    else return 0;
 //}
-//#include <fcntl.h>
-//#include <termios.h>
-//#include <unistd.h>
+#include <fcntl.h>
+#include <termios.h>
+#include <unistd.h>
 #include <iostream>
 #include <stdio.h>
 #include<opencv2/opencv.hpp>
@@ -131,94 +76,94 @@
 using namespace std;
 using namespace cv;
 double redcontours, greencontours, yellowcontours;
-//void red(Mat srcImage)
-//{
-//	Mat midImage;
-//	cvtColor(srcImage, midImage, COLOR_BGR2HSV);
-//	inRange(midImage, Scalar(2, 43, 46), Scalar(7, 255, 255), midImage);
-//	GaussianBlur(midImage, midImage, Size(5, 5), 0, 0);
-//	vector<vector<Point>>contours;
-//	vector<Vec4i>hierarchy;
-//	findContours(midImage, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
-//	double largest_area = 0;
-//	double largest_contour_index = 0;
-//	Rect bounding_rect;
-//	for (size_t i = 0; i < contours.size(); i++)
-//	{
-//		double area = contourArea(contours[i]);
-//		if (area > largest_area)
-//		{
-//			largest_area = area;
-//			largest_contour_index = i;
-//			bounding_rect = boundingRect(contours[i]);
-//			redcontours = area;
-//		}
-//	}
-//};
-//void yellow(Mat srcImage)
-//{
-//	Mat midImage;
-//	cvtColor(srcImage, midImage, COLOR_BGR2HSV);
-//	inRange(midImage, Scalar(20, 43, 46), Scalar(23, 255, 255), midImage);
-//	GaussianBlur(midImage, midImage, Size(5, 5), 0, 0);
-//	vector<vector<Point>>contours;
-//	vector<Vec4i>hierarchy;
-//	findContours(midImage, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
-//	double largest_area = 0;
-//	double largest_contour_index = 0;
-//	Rect bounding_rect;
-//	for (size_t i = 0; i < contours.size(); i++)
-//	{
-//		double area = contourArea(contours[i]);
-//		if (area > largest_area)
-//		{
-//			largest_area = area;
-//			largest_contour_index = i;
-//			bounding_rect = boundingRect(contours[i]);
-//			yellowcontours = area;
-//		}
-//	}
-//};
-//void green(Mat srcImage)
-//{
-//	Mat midImage;
-//	cvtColor(srcImage, midImage, COLOR_BGR2HSV);
-//	inRange(midImage, Scalar(26, 73, 100), Scalar(64, 255, 255), midImage);
-//	GaussianBlur(midImage, midImage, Size(5, 5), 0, 0);
-//	vector<vector<Point>>contours;
-//	vector<Vec4i>hierarchy;
-//	findContours(midImage, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
-//	double largest_area = 0;
-//	double largest_contour_index = 0;
-//	Rect bounding_rect;
-//	for (size_t i = 0; i < contours.size(); i++)
-//	{
-//		double area = contourArea(contours[i]);
-//		if (area > largest_area)
-//		{
-//			largest_area = area;
-//			largest_contour_index = i;
-//			bounding_rect = boundingRect(contours[i]);
-//			greencontours = area;
-//		}
-//	}
-//};
-int thresholds = 0;
-int thresholds1 = 0;
-int thresholds2 = 0;
-int thresholds3 = 180;
-int thresholds4 = 255;
-int thresholds5 = 255;
-Mat image1;
-void distinguish(int, void*)
+void red(Mat srcImage)
 {
-	Mat image;
-	//inRange(image1, Scalar(0, 3, 138),
-	//Scalar(57, 110, 255), image);
-	inRange(image1, Scalar(thresholds, thresholds1, thresholds2),
-		Scalar(thresholds3, thresholds4, thresholds5), image);
-	imshow("视频", image);
+	Mat midImage;
+	cvtColor(srcImage, midImage, COLOR_BGR2HSV);
+	inRange(midImage, Scalar(2, 43, 46), Scalar(7, 255, 255), midImage);
+	GaussianBlur(midImage, midImage, Size(5, 5), 0, 0);
+	vector<vector<Point>>contours;
+	vector<Vec4i>hierarchy;
+	findContours(midImage, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
+	double largest_area = 0;
+	double largest_contour_index = 0;
+	Rect bounding_rect;
+	for (size_t i = 0; i < contours.size(); i++)
+	{
+		double area = contourArea(contours[i]);
+		if (area > largest_area)
+		{
+			largest_area = area;
+			largest_contour_index = i;
+			bounding_rect = boundingRect(contours[i]);
+			redcontours = area;
+		}
+	}
 };
+void yellow(Mat srcImage)
+{
+	Mat midImage;
+	cvtColor(srcImage, midImage, COLOR_BGR2HSV);
+	inRange(midImage, Scalar(20, 43, 46), Scalar(23, 255, 255), midImage);
+	GaussianBlur(midImage, midImage, Size(5, 5), 0, 0);
+	vector<vector<Point>>contours;
+	vector<Vec4i>hierarchy;
+	findContours(midImage, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
+	double largest_area = 0;
+	double largest_contour_index = 0;
+	Rect bounding_rect;
+	for (size_t i = 0; i < contours.size(); i++)
+	{
+		double area = contourArea(contours[i]);
+		if (area > largest_area)
+		{
+			largest_area = area;
+			largest_contour_index = i;
+			bounding_rect = boundingRect(contours[i]);
+			yellowcontours = area;
+		}
+	}
+};
+void green(Mat srcImage)
+{
+	Mat midImage;
+	cvtColor(srcImage, midImage, COLOR_BGR2HSV);
+	inRange(midImage, Scalar(26, 73, 100), Scalar(64, 255, 255), midImage);
+	GaussianBlur(midImage, midImage, Size(5, 5), 0, 0);
+	vector<vector<Point>>contours;
+	vector<Vec4i>hierarchy;
+	findContours(midImage, contours, hierarchy, RETR_CCOMP, CHAIN_APPROX_SIMPLE);
+	double largest_area = 0;
+	double largest_contour_index = 0;
+	Rect bounding_rect;
+	for (size_t i = 0; i < contours.size(); i++)
+	{
+		double area = contourArea(contours[i]);
+		if (area > largest_area)
+		{
+			largest_area = area;
+			largest_contour_index = i;
+			bounding_rect = boundingRect(contours[i]);
+			greencontours = area;
+		}
+	}
+};
+// int thresholds = 0;
+// int thresholds1 = 0;
+// int thresholds2 = 0;
+// int thresholds3 = 180;
+// int thresholds4 = 255;
+// int thresholds5 = 255;
+// Mat image1;
+// void distinguish(int, void*)
+// {
+// 	Mat image;
+// 	//inRange(image1, Scalar(0, 3, 138),
+// 	//Scalar(57, 110, 255), image);
+// 	inRange(image1, Scalar(thresholds, thresholds1, thresholds2),
+// 		Scalar(thresholds3, thresholds4, thresholds5), image);
+// 	imshow("视频", image);
+// };
 int main(int argc,char** argv) 
 {
 	VideoCapture capture(1);
@@ -245,17 +190,17 @@ int main(int argc,char** argv)
 		inRange(midImage, Scalar(0, 180, 0),
 			Scalar(43, 46, 220), midImage);*/
 		cvtColor(srcImage, midImage, COLOR_BGR2HSV);
-		/*inRange(midImage, Scalar(0, 255, 25),
-			Scalar(180, 255, 51), midImage);*/
-		inRange(midImage, Scalar(thresholds, thresholds1, thresholds2),
-				Scalar(thresholds3, thresholds4, thresholds5), midImage);
-		createTrackbar("Hmin：", "视频", &thresholds, 255, distinguish);
-		createTrackbar("Smin：", "视频", &thresholds1, 255, distinguish);
-		createTrackbar("Vmin：", "视频", &thresholds2, 255, distinguish);
-		createTrackbar("Hmax：", "视频", &thresholds3, 255, distinguish);
-		createTrackbar("Smax：", "视频", &thresholds4, 255, distinguish);
-		createTrackbar("Vmax：", "视频", &thresholds5, 255, distinguish); 
-		distinguish(0,0);
+		inRange(midImage, Scalar(0, 255, 14),
+			Scalar(64, 255, 70), midImage);
+// 		inRange(midImage, Scalar(thresholds, thresholds1, thresholds2),
+// 				Scalar(thresholds3, thresholds4, thresholds5), midImage);
+// 		createTrackbar("Hmin：", "视频", &thresholds, 255, distinguish);
+// 		createTrackbar("Smin：", "视频", &thresholds1, 255, distinguish);
+// 		createTrackbar("Vmin：", "视频", &thresholds2, 255, distinguish);
+// 		createTrackbar("Hmax：", "视频", &thresholds3, 255, distinguish);
+// 		createTrackbar("Smax：", "视频", &thresholds4, 255, distinguish);
+// 		createTrackbar("Vmax：", "视频", &thresholds5, 255, distinguish); 
+// 		distinguish(0,0);
 		GaussianBlur(midImage, midImage, Size(5, 5), 60, 60);
 		vector<vector<Point>>contours;
 		vector<Vec4i>hierarchy;
