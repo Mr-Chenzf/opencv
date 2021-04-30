@@ -268,24 +268,24 @@ int main(int argc,char** argv)
 			2, 8, 0);
 		imshow("视频1", imageROI);
 		//Canny(edges, edges, 0, 30, 3);
-		//red(imageROI);
-		//green(imageROI);
-		//yellow(imageROI);
-		//if (redcontours > yellowcontours&& redcontours > greencontours)
-		//	sign= 1;
-		//else
-		//{
-		//	if (redcontours == yellowcontours && redcontours > greencontours)
-		//		sign = 2;
-		//	else {
-		//		if (greencontours > redcontours && greencontours > yellowcontours)
-		//			sign = 3;
-		//		else
-		//			if(greencontours > redcontours && greencontours == yellowcontours)
-		//			sign = 4;
-		//	}
-		//}
-		//cout << sign << endl;
+		red(imageROI);
+		green(imageROI);
+		yellow(imageROI);
+		if (redcontours > yellowcontours&& redcontours > greencontours)
+			sign= 1;
+		else
+		{
+			if (redcontours == yellowcontours && redcontours > greencontours)
+				sign = 2;
+			else {
+				if (greencontours > redcontours && greencontours > yellowcontours)
+					sign = 3;
+				else
+					if(greencontours > redcontours && greencontours == yellowcontours)
+					sign = 4;
+			}
+		}
+		cout << sign << endl;
 		imshow("视频", midImage);
 		imshow("视频2", srcImage);
 		//imshow("视频3", blackimage);
